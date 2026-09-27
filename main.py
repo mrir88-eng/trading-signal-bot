@@ -64,4 +64,9 @@ async def algo_signal_engine(app):
 async def post_init(application):
     asyncio.create_task(algo_signal_engine(application))
 
-if __name__ == '__main
+if __name__ == "__main__":
+    app = ApplicationBuilder().token(TELEGRAM_TOKEN).post_init(post_init).build()
+    app.add_handler(CommandHandler('start', start))
+    app.add_handler(CommandHandler('engine_on', engine_on))
+    app.add_handler(CommandHandler('engine_off', engine_off))
+    app.run_polling()
